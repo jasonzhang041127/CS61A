@@ -167,7 +167,15 @@ def play(strategy0, strategy1, update, score0=0, score1=0, dice=six_sided, goal=
     """
     who = 0  # Who is about to take a turn, 0 (first) or 1 (second)
     # BEGIN PROBLEM 5
-    "*** YOUR CODE HERE ***"
+    while(score0 < goal and score1 < goal):
+        if(who == 0):
+            score0 = update(strategy0(score0, score1), score0, score1, dice)
+            if(score0 < goal and score1 < goal):
+                score1 = update(strategy1(score1, score0), score1, score0, dice)
+        else:
+            score1 = update(strategy1(score1, score0), score1, score0, dice)
+            if(score0 < goal and score1 < goal):
+                score0 = update(strategy0(score0, score1), score0, score1, dice)
     # END PROBLEM 5
     return score0, score1
 
@@ -193,9 +201,10 @@ def always_roll(n):
     assert n >= 0 and n <= 10
 
     # BEGIN PROBLEM 6
-    "*** YOUR CODE HERE ***"
+    def strategy_always_roll(player_score, opponent_score):
+        return n
+    return strategy_always_roll
     # END PROBLEM 6
-
 
 def catch_up(score, opponent_score):
     """A player strategy that always rolls 5 dice unless the opponent
