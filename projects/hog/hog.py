@@ -234,9 +234,19 @@ def is_always_roll(strategy, goal=GOAL):
     False
     """
     # BEGIN PROBLEM 7
-    "*** YOUR CODE HERE ***"
+    player_score = 0
+    opponent_score = 0
+    while(player_score < goal and opponent_score < goal):
+        last_dice = strategy(player_score, opponent_score)
+        while(opponent_score < goal):                               # iterate (0, 0) to (0, goal)
+            opponent_score += 1
+            if(last_dice != strategy(player_score, opponent_score)):    
+                return False
+        if(opponent_score == goal):
+            opponent_score = 0
+        player_score += 1
+    return True
     # END PROBLEM 7
-
 
 def make_averaged(original_function, times_called=1000):
     """Return a function that returns the average value of ORIGINAL_FUNCTION
